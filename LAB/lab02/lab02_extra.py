@@ -36,6 +36,12 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
+    def func(x):
+        if compose1(f, g)(x) != compose1(g, f)(x):
+            return False
+        else:
+            return True
+    return func
 
 def count_cond(condition):
     """Returns a function with one parameter N that counts all the numbers from
@@ -65,6 +71,13 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
+    def func(x):
+        num = 0
+        for i in range(1, x + 1):
+            if condition(x, i):
+                num += 1
+        return num
+    return func
 
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
