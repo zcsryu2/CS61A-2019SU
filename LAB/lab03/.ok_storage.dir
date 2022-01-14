@@ -1,0 +1,4 @@
+'skip_add-correct', (0, 70)
+'hailstone-correct', (512, 70)
+'summation-correct', (1024, 70)
+'gcd-correct', (1536, 70)

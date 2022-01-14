@@ -106,3 +106,21 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
+    def cycle_first(n):
+        def cycle_second(x):
+            nonlocal n
+            num, i = x, 1
+            if n == 0:
+                return x
+            while i <= n:
+                a = i % 3
+                if a == 1:
+                    num = f1(num)
+                elif a == 2:
+                    num = f2(num)
+                else:
+                    num = f3(num)
+                i += 1
+            return num
+        return cycle_second
+    return cycle_first

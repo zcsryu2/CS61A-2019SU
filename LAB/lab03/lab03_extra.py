@@ -11,6 +11,7 @@ def is_prime(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    
 
 def gcd(a, b):
     """Returns the greatest common divisor of a and b.
@@ -26,6 +27,18 @@ def gcd(a, b):
     40
     """
     "*** YOUR CODE HERE ***"
+    if a > b:
+        if a % b == 0:
+            return b
+        else:
+            return gcd(b, a % b)
+    elif a < b:
+        if b % a == 0:
+            return a
+        else:
+            return gcd(a, b % a)
+    else:
+        return a
 
 def ten_pairs(n):
     """Return the number of ten-pairs within positive integer n.

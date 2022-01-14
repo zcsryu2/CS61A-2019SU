@@ -14,7 +14,12 @@ def skip_add(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n == 0:
+        return 0
+    if n - 2 >= 0:
+        return n + skip_add(n - 2)
+    else:
+        return n + skip_add(n - 1)
 
 this_file = __file__
 
@@ -39,6 +44,16 @@ def hailstone(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    print(n)
+    if n == 1:
+        return n
+    if n % 2 == 1:
+        n = n * 3 + 1
+        return 1 + hailstone(n)
+    else:
+        n = n // 2
+        return 1 + hailstone(n)
+
 
 def summation(n, term):
 
@@ -59,3 +74,6 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return term(n)
+    return term(n) + summation(n - 1, term)
