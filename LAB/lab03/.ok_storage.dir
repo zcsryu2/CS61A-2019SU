@@ -2,3 +2,5 @@
 'hailstone-correct', (512, 70)
 'summation-correct', (1024, 70)
 'gcd-correct', (1536, 70)
+'is_prime-correct', (2048, 70)
+'ten_pairs-correct', (2560, 70)

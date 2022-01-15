@@ -11,6 +11,10 @@ def is_prime(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        return False
+    helper = lambda i: True if i == n else False if n % i == 0 else helper(i + 1)
+    return helper(2)
     
 
 def gcd(a, b):
@@ -51,3 +55,16 @@ def ten_pairs(n):
     6
     """
     "*** YOUR CODE HERE ***"
+    def count_number(n, pair, cnt):
+        if n == 0:
+            return cnt
+        elif n % 10 == pair:
+            return count_number(n // 10, pair, cnt + 1)
+        else:
+            return count_number(n // 10, pair, cnt)
+    def count_n(n, cnt):
+        if n == 0:
+            return cnt
+        else:
+            return count_n(n // 10, cnt + count_number(n // 10, 10 - n % 10, 0))
+    return count_n(n, 0)

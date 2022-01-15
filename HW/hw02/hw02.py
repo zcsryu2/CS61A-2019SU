@@ -37,6 +37,11 @@ def product(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    num, i = 1, 1
+    while i <= n:
+        num *= term(i)
+        i += 1
+    return num
 
 def factorial(n):
     """Return n factorial for n >= 0 by calling product.
@@ -50,6 +55,7 @@ def factorial(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    return product(n, identity)
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
@@ -70,6 +76,11 @@ def accumulate(combiner, base, n, term):
     19
     """
     "*** YOUR CODE HERE ***"
+    num, i = base, 1
+    while i <= n:
+        num = combiner(num, term(i))
+        i += 1
+    return num
 
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
@@ -85,6 +96,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -99,6 +111,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 def compose1(f, g):
     """Return a function h, such that h(x) = f(g(x))."""
@@ -122,6 +135,16 @@ def make_repeater(f, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    def func(x):
+        nonlocal n
+        if n == 0:
+            return x
+        if n == 1:
+            return f(x)
+        while n > 1:
+            n -= 1
+            return func(f(x))
+    return func
 
 def num_sevens(n):
     """Returns the number of times 7 appears as a digit of n.
@@ -144,6 +167,12 @@ def num_sevens(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    if n % 10 == 7:
+        return 1 + num_sevens(n // 10)
+    else:
+        return num_sevens(n // 10)
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
