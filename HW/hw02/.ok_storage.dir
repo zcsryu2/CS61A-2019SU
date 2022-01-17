@@ -5,3 +5,5 @@
 'product_using_accumulate-correct', (2048, 70)
 'make_repeater-correct', (2560, 70)
 'num_sevens-correct', (3072, 70)
+'move_stack-correct', (3584, 70)
+'make_anonymous_factorial-correct', (4096, 70)

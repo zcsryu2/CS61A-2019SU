@@ -14,6 +14,10 @@ def couple(s1, s2):
     """
     assert len(s1) == len(s2)
     "*** YOUR CODE HERE ***"
+    s = []
+    for i in range(0, len(s1)):
+        s.append([s1[i], s2[i]])
+    return s
 
 def enumerate(s, start=0):
     """Returns a list of lists, where the i-th list contains i+start and
@@ -24,6 +28,11 @@ def enumerate(s, start=0):
     [[5, 'f'], [6, 'i'], [7, 'v'], [8, 'e']]
     """
     "*** YOUR CODE HERE ***"
+    s1 = []
+    for i in range(0, len(s)):
+        s1.append(start + i)  
+    ss =  couple(s1, s)
+    return ss 
 
 from math import sqrt
 def distance(city1, city2):

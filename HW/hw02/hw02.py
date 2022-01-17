@@ -206,6 +206,18 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    # def func(i):
+    #     if(i % 7 == 0 or num_sevens(i) > 0):
+    # flag = 1
+    # i, num = 1, 0
+    # while i <= n:
+    #     num += flag
+    #     if i % 7 == 0 or num_sevens(i) > 0:
+    #         flag = -flag
+    #     i += 1
+    # return num
+    return lambda f: lambda x: f(f, x) #error
+
 
 def count_change(amount):
     """Return the number of ways to make change for amount.
@@ -263,6 +275,15 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    for i in range(1, 4):
+        if i != start and i != end:
+            other = i
+    if n == 1:
+        print_move(start, end)
+    else:
+        move_stack(n - 1, start, other)
+        move_stack(1, start, end)
+        move_stack(n - 1, other, end)
 
 from operator import sub, mul
 
@@ -275,4 +296,5 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return (lambda f: lambda x: f(f, x))(lambda f, x: x if x == 1 else x * f(f, x-1))
+
