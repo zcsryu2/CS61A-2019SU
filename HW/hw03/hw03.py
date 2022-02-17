@@ -93,7 +93,9 @@ def taxicab(a, b):
     9
     """
     "*** YOUR CODE HERE ***"
-
+    x = abs(street(a) - street(b))
+    y = abs(avenue(a) - avenue(b))
+    return x + y
 def flatten(lst):
     """Returns a flattened version of lst.
 
@@ -111,6 +113,13 @@ def flatten(lst):
     [[1, [1, 1]], 1, [1, 1]]
     """
     "*** YOUR CODE HERE ***"
+    a = []
+    for b in lst:
+        if type(b) == list:
+            a += flatten(b)
+        else:
+            a.append(b)
+    return a
 
 def replace_leaf(t, old, new):
     """Returns a new tree where every leaf value equal to old has
@@ -142,6 +151,13 @@ def replace_leaf(t, old, new):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        if label(t) == old:
+            return tree(new)
+        else:
+            return t
+    bran = [replace_leaf(a, old, new) for a in branches(t)]
+    return tree(label(t), bran)
 
 # Mobiles
 
@@ -188,11 +204,13 @@ def weight(size):
     """Construct a weight of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
+    return ['weight', size]
 
 def size(w):
     """Select the size of a weight."""
     assert is_weight(w), 'must call size on a weight'
     "*** YOUR CODE HERE ***"
+    return w[1]
 
 def is_weight(w):
     """Whether w is a weight."""
@@ -241,6 +259,13 @@ def balanced(m):
     False
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return True
+    else:
+        b = [balanced(end(s)) for s in side(m)]
+        weights = [total_weight(end(s)) for s in side(m)]
+        lengths = [length(s) for s in side(m)]
+        return all(b) and len(set(a * b for a, b in zip(lengths, weights))) == 1
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
