@@ -262,10 +262,12 @@ def balanced(m):
     if is_weight(m):
         return True
     else:
-        b = [balanced(end(s)) for s in side(m)]
-        weights = [total_weight(end(s)) for s in side(m)]
-        lengths = [length(s) for s in side(m)]
-        return all(b) and len(set(a * b for a, b in zip(lengths, weights))) == 1
+        wei_l = total_weight(end(branches(m)[0])) * length(branches(m)[0])
+        wei_r = total_weight(end(branches(m)[1])) * length(branches(m)[1])
+        if wei_l != wei_r:
+            return False
+        flag = [balanced(end(a)) for a in branches(m)]
+        return all(flag)
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
@@ -293,6 +295,10 @@ def totals_tree(m):
           2
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return tree(size(m))
+    else:
+        return tree(total_weight(m), [totals_tree(end(a)) for a in branches(m)])
 
 ###################
 # Extra Questions #
@@ -307,10 +313,12 @@ def successor(n):
 def one(f):
     """Church numeral 1: same as successor(zero)"""
     "*** YOUR CODE HERE ***"
+    return lambda x : f(x)
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
+    return lambda x : f(f(x))
 
 three = successor(two)
 
@@ -327,6 +335,7 @@ def church_to_int(n):
     3
     """
     "*** YOUR CODE HERE ***"
+    return n(lambda x : x + 1)(0)
 
 def add_church(m, n):
     """Return the Church numeral for m + n, for Church numerals m and n.
@@ -335,6 +344,7 @@ def add_church(m, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: m(f)(x) + n(f)(x)
 
 def mul_church(m, n):
     """Return the Church numeral for m * n, for Church numerals m and n.
@@ -346,6 +356,7 @@ def mul_church(m, n):
     12
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: m(f)(x) * n(f)(x)
 
 def pow_church(m, n):
     """Return the Church numeral m ** n, for Church numerals m and n.
@@ -356,3 +367,4 @@ def pow_church(m, n):
     9
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: m(f)(x) // n(f)(x)
