@@ -98,6 +98,9 @@ def sprout_leaves(t, vals):
           2
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+      return tree(label(t), [tree(v) for v in vals])
+    return tree(label(t), [sprout_leaves(a, vals) for a in branches(t)])
 
 def add_trees(t1, t2):
     """

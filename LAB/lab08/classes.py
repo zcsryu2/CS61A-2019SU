@@ -23,6 +23,9 @@ class Card(object):
         500
         """
         "*** YOUR CODE HERE ***"
+        self.name = name
+        self.attack = attack
+        self.defense = defense
 
     def power(self, other_card):
         """
@@ -42,6 +45,7 @@ class Card(object):
         50.0
         """
         "*** YOUR CODE HERE ***"
+        return self.attack - other_card.defense / 2
 
 
     def effect(self, other_card, player, opponent):
@@ -80,6 +84,9 @@ class Player(object):
         self.deck = deck
         self.name = name
         "*** YOUR CODE HERE ***"
+        self.hand = []
+        for i in range(5):
+            self.hand.append(deck.draw())
 
     def draw(self):
         """Draw a card from the player's deck and add it to their hand.
@@ -94,6 +101,7 @@ class Player(object):
         """
         assert not self.deck.is_empty(), 'Deck is empty!'
         "*** YOUR CODE HERE ***"
+        self.hand.append(self.deck.draw())
 
     def play(self, card_index):
         """Remove and return a card from the player's hand at the given index.
@@ -110,6 +118,7 @@ class Player(object):
         2
         """
         "*** YOUR CODE HERE ***"
+        return self.hand.pop(card_index)
 
 
     def display_hand(self):
@@ -151,8 +160,11 @@ class TutorCard(Card):
         True
         """
         "*** YOUR CODE HERE ***"
+        for i in range(3):
+            opponent.hand.pop(i)
+            opponent.hand.append(opponent.deck.draw())
         #Uncomment the line below when you've finished implementing this method!
-        #print('{} discarded and re-drew 3 cards!'.format(opponent.name))
+        print('{} discarded and re-drew 3 cards!'.format(opponent.name))
 
     def copy(self):
         """
@@ -177,7 +189,9 @@ class TACard(Card):
         300
         """
         "*** YOUR CODE HERE ***"
-
+        a = other_card.attack
+        other_card.attack = other_card.defense
+        other_card.defense = a
 
     def copy(self):
         """
@@ -210,8 +224,13 @@ class InstructorCard(Card):
         300
         """
         "*** YOUR CODE HERE ***"
+        for i in range(len(player.deck.cards)):
+            player.deck.cards[i].attack += 300
+            player.deck.cards[i].defense += 300
+        player.hand.append(other_card.copy())
+        player.deck.cards.append(other_card.copy())
         #Uncomment the line below when you've finished implementing this method!
-        #print('{}\'s card added to {}\'s hand and deck!'.format(opponent.name, player.name))
+        print('{}\'s card added to {}\'s hand and deck!'.format(opponent.name, player.name))
 
     def copy(self):
         """
