@@ -233,6 +233,13 @@ def remove_all(link , value):
     <0 1>
     """
     "*** YOUR CODE HERE ***"
+    if link.rest == Link.empty:
+        return 
+    if link.rest.first == value:
+        link.rest = link.rest.rest
+        return remove_all(link, value)
+    remove_all(link.rest, value)
+
 
 def generate_paths(t, x):
     """Yields all possible paths from the root of t to a node with the label x
@@ -270,11 +277,12 @@ def generate_paths(t, x):
     """
 
     "*** YOUR CODE HERE ***"
-
-    for _______________ in _________________:
-        for _______________ in _________________:
-
+    if t.label == x:
+        return [x]
+    for a in t.branches:
+        for path in generate_paths(a, x):
             "*** YOUR CODE HERE ***"
+            yield [t.label] + path
 
 ## Link Class ##
 
