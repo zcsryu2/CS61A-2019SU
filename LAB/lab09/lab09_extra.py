@@ -130,6 +130,12 @@ def has_cycle(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    p = link.rest
+    while p != Link.empty:
+        if p == link:
+            return True
+        p = p.rest
+    return False
 
 def has_cycle_constant(link):
     """Return whether link contains a cycle.
@@ -143,6 +149,12 @@ def has_cycle_constant(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    p = link.rest
+    while p != Link.empty:
+        if p == link:
+            return True
+        p = p.rest
+    return False
 
 def reverse_other(t):
     """Mutates the tree such that nodes on every other (odd-depth) level
@@ -158,3 +170,6 @@ def reverse_other(t):
     Tree(1, [Tree(8, [Tree(3, [Tree(5), Tree(4)]), Tree(6, [Tree(7)])]), Tree(2)])
     """
     "*** YOUR CODE HERE ***"
+    def reverse(t, ):
+        return 
+    return reverse()

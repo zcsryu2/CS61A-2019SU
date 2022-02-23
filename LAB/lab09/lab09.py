@@ -125,6 +125,12 @@ def link_to_list(link):
     []
     """
     "*** YOUR CODE HERE ***"
+    lst = []
+    p = link
+    while p != Link.empty:
+        lst.append(p.first)
+        p = p.rest
+    return lst
 
 def store_digits(n):
     """Stores the digits of a positive number n in a linked list.
@@ -138,6 +144,18 @@ def store_digits(n):
     Link(8, Link(7, Link(6)))
     """
     "*** YOUR CODE HERE ***"
+    a, b = n // 10, n % 10
+    link = Link.empty
+    if a == 0:
+        return Link(b)
+    else:
+        while a != 0:
+            link = Link(b, link)
+            b = a % 10
+            a = a // 10
+        link = Link(b, link)
+        return link
+    
 
 def cumulative_sum(t):
     """Mutates t so that each node's label becomes the sum of all labels in
@@ -149,3 +167,9 @@ def cumulative_sum(t):
     Tree(16, [Tree(8, [Tree(5)]), Tree(7)])
     """
     "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return t.label
+    for a in t.branches:
+        a. label = a.label + sum([cumulative_sum(b) for b in a.branches])
+    t.label = t.label + sum([c.label for c in t.branches])
+    # return t

@@ -278,7 +278,7 @@ def generate_paths(t, x):
 
     "*** YOUR CODE HERE ***"
     if t.label == x:
-        return [x]
+        yield [x]
     for a in t.branches:
         for path in generate_paths(a, x):
             "*** YOUR CODE HERE ***"
