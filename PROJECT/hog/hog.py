@@ -132,6 +132,20 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while score0 < goal and score1 < goal:
+        if player == 0:
+            score0 += take_turn(strategy0(score0, score1), score1, dice)
+            if is_swap(score0, score1):
+                score0, score1 = score1, score0
+            # print("score %d: %d\n" %(player, score0))
+        else:
+            score1 += take_turn(strategy1(score1, score0), score0, dice)
+            if is_swap(score1, score0):
+                score0, score1 = score1, score0
+            # print("score %d: %d\n" %(player, score1))
+        say = say(score0, score1)
+        player = other(player)
+        
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
@@ -222,6 +236,19 @@ def announce_highest(who, previous_high=0, previous_score=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    def saying(score0, score1):
+        current_score = 0
+        if who == 0:
+            current_score = score0
+        else:
+            current_score = score1
+        high = current_score - previous_score
+        if high > previous_high:
+            print("%d point(s)! That's the biggest gain yet for Player %d" %(high, who))
+        else:
+            high = previous_high
+        return announce_highest(who, high, current_score)
+    return saying
     # END PROBLEM 7
 
 
@@ -261,6 +288,13 @@ def make_averaged(fn, num_samples=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def func(*args):
+        ans, time = 0, num_samples
+        while time > 0:
+            ans += fn(*args)
+            time -= 1
+        return ans / num_samples
+    return func
     # END PROBLEM 8
 
 
@@ -275,6 +309,13 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    index, n = 0, 0
+    m = make_averaged(roll_dice)
+    for i in range(1, 11):
+        if m(i, dice) > n:
+            n = m(i, dice)
+            index = i
+    return index
     # END PROBLEM 9
 
 
@@ -323,7 +364,9 @@ def bacon_strategy(score, opponent_score, margin=8, num_rolls=4):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 4  # Replace this statement
+    if free_bacon(opponent_score) >= margin:
+        return 0
+    return num_rolls  # Replace this statement
     # END PROBLEM 10
 
 
@@ -333,7 +376,14 @@ def swap_strategy(score, opponent_score, margin=8, num_rolls=4):
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 4  # Replace this statement
+    a = free_bacon(opponent_score)
+    # flag = is_swap(score + a, opponent_score) and opponent_score > score + a
+    if is_swap(score + a, opponent_score) and opponent_score > score + a:
+        return 0
+    elif a >= margin and (not (is_swap(score + a, opponent_score) and opponent_score <= score + a)):
+        return 0
+    else:
+        return num_rolls  # Replace this statement
     # END PROBLEM 11
 
 

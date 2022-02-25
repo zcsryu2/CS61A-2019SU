@@ -5,6 +5,18 @@ from ucb import main
 
 # BEGIN Q1-5
 "*** YOUR CODE HERE ***"
+def lines_from_file(path):
+    fl = open(path)
+    lst = readlines(fl)
+    for i in range(len(lst)):
+        lst[i] = strip(lst[i])
+    close(fl)
+    return lst
+
+def new_sample(path, i):
+    line = lines_from_file(path)
+    return line[i]
+
 # END Q1-5
 
 # Question 6
