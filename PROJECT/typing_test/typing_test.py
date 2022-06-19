@@ -48,6 +48,8 @@ def pig_latin(words):
             break
     if i == 0:
         return words + 'way'
+    elif i == len(words) - 1:
+        return words + 'ay'
     return words[i:] + words[:i] + 'ay'
 
 def autocorrect(user_input, words_list, score_function):

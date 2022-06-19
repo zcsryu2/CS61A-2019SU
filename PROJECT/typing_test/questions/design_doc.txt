@@ -3,11 +3,10 @@ Text File questions
 
 
 Problem 01: Sample Paragraphs
-111
 
 
 - Which functions from utils.py will you use for interacting with the sample_paragraphs.txt file?
-
+open, readlines and close
 
 
 
@@ -17,7 +16,7 @@ Problem 02: Words Per Minute
 
 
 - Given a long string that contains a full paragraph (e.g. "This is my name. It is Bob. Also, I have a cat named Troy."), what function will you use to separate a string containing a full paragraph into its individual words?
-
+lines_from_file
 
 
 
